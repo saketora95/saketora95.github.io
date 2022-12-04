@@ -1,20 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-tw">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
         <title>My Test Website</title>
     </head>
     <body>
-        <h1>Hello.</h1>
-        <p>這裡是一個測試網站。</p>
-        <p>2022-12-02 16:05 現在可以用 <a href="https://web.tora95.tk/dj2002/">https://web.tora95.tk/dj2002/</a> 來連線到作業 dj2002 的頁面。</p>
-        <p>
-            2022-12-02 16:00 調整了 Repository 的名字；要作為主站點的話，Repository 必須依照
-            <a href="https://docs.github.com/cn/pages/getting-started-with-github-pages/creating-a-github-pages-site">GitHub 官方指示</a>
-            ，設置為「[user].github.io」，而原先設置為「ClassPracticeKai」，導致 https://web.tora95.tk/dj2002/ 無法連線到期望的頁面上。
-        </p>
-        <p>2022-12-02 14:30 現在可以用 <a href="https://web.tora95.tk/">https://web.tora95.tk/</a> 來連線到這裡了。</p>
+        <div class="container p-3">
+            <h1>Hello.</h1>
+            <p>這裡是一個測試網站。</p>
+
+            <div class="accordion" id="accordionMain">
+
+                <!-- <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Accordion Item #1
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionMain">
+                        <div class="accordion-body">
+                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingInfo">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" aria-expanded="true" aria-controls="collapseInfo">
+                            簡易筆記
+                        </button>
+                    </h2>
+                    <div id="collapseInfo" class="accordion-collapse collapse show" aria-labelledby="headingInfo" data-bs-parent="#accordionMain">
+                        <div class="accordion-body">
+
+                            <div>
+                                <span class="badge rounded-pill bg-info text-dark">2022-12-02</span>
+                                <p>基於要求，應設置為 <a href="https://web.tora95.tk/dj2002">https://web.tora95.tk/dj2002</a> 可以通向 dj2002 的頁面，但未能達成要求。</p>
+                                <p>依照 GitHub 官方文件中得知，若要達成這個要求，即促使特定的 Repository 成為主站（大概是這個稱呼），而能透過在網址追加其他 Repository 的名字，就能通向其他 Repository 的頁面的話，主站的 Repository 名稱必須設置為 <code>[user].github.io</code> 才行。</p>
+                                <p>起初為方便辨識，設置 Repository 的名字為 <code>ClassPracticeKai</code>，才導致了此一問題，將其依照要求調整後，便達成要求。</p>
+                                <p>參考資料: <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">Creating a GitHub Pages site - GitHub Docs</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingHistory">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistory" aria-expanded="false" aria-controls="collapseHistory">
+                            編輯記錄
+                        </button>
+                    </h2>
+                    <div id="collapseHistory" class="accordion-collapse collapse" aria-labelledby="headingHistory" data-bs-parent="#accordionMain">
+                        <div class="accordion-body">
+
+                            <div>
+                                <span class="badge rounded-pill bg-info text-dark">2022-12-04</span>
+                                <p><strong>17:20</strong> - 改變頁面的呈現方式。</p>
+                            </div>
+
+                            <div>
+                                <span class="badge rounded-pill bg-info text-dark">2022-12-02</span>
+                                <p><strong>16:15</strong> - 變更 Repository 的名字，並因此解決了未能依照指定的網址（<a href="https://web.tora95.tk/dj2002">https://web.tora95.tk/dj2002</a>）連到 dj2002 頁面的問題。</p>
+                                <p><strong>15:45</strong> - 重建 dj2002，試圖透過重建確認能否改善問題，但未能改善。</p>
+                                <p><strong>14:55</strong> - 新建 dj2002 的 Repository，但未能依照指定的網址（<a href="https://web.tora95.tk/dj2002">https://web.tora95.tk/dj2002</a>）連到 dj2002 的頁面。</p>
+                                <p><strong>14:30</strong> - 完成 Custom Domain 的設置，可以經由 <a href="https://web.tora95.tk/">https://web.tora95.tk/</a> 連到此頁面。</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </body>
 </html>
