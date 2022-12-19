@@ -44,6 +44,7 @@
 
             <!-- 隱藏-->
             <input type="hidden" name='op' value='set_sheet' class="form-control" id="op">
+            <input type="hidden" name='source_url' id="source_url">
 
             <button type="submit" class="btn btn-primary w-100" id="submit">送出</button>
 
@@ -188,15 +189,6 @@
                     valid: 'required', //required
                     option: '下拉選單(多選)1|下拉選單(多選)2|下拉選單(多選)3|下拉選單(多選)4|下拉選單(多選)5',
                     width: '6'
-                },
-                {
-                    label: '返回網址',
-                    type: 'hidden',
-                    name: 'source_url',
-                    value: '',
-                    valid: 'required', //required
-                    option: '',
-                    width: '3'
                 },
             ];
             let form_item = '';
