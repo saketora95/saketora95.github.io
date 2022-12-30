@@ -1,23 +1,32 @@
+const TargetURL = 'https://script.google.com/macros/s/AKfycbyfFC46klPsp8IyXT-m_vkoNmgDv_HVaiF6hkNi0ucz-jipO5Db9JG8fBKcrSDA0Bk/exec'
+
 function initialURLInput() {
 
-    document.getElementById('return_url').value = window.location.href
+    document.getElementById('GASForm').setAttribute('action', TargetURL)
+    let current_url = window.location.href
+    document.getElementById('callback_url').value = current_url
+    document.getElementById('home_url').value = current_url.replace(window.location.pathname, '')
 
     $.ajax({
-        url: 'https://script.google.com/macros/s/AKfycbyfFC46klPsp8IyXT-m_vkoNmgDv_HVaiF6hkNi0ucz-jipO5Db9JG8fBKcrSDA0Bk/exec',
+        url: TargetURL,
         data: {
-            op: 'get_payment_stru'
+            op: 'get_contact_stru'
         },
         method: 'GET',
         dataType: 'json',
-        async: false,
+        async: true,
+
         // 發送前
         beforeSend: function() {
 
         },
+
         // 成功
         success: function(result) {
             createForm('GASForm_ObjectArea', result)
+            document.getElementById('loaderArea').style.display = 'none'
         },
+
         // 失敗
         error: function(error) {
             console.log(error)
@@ -27,9 +36,6 @@ function initialURLInput() {
     let submitBtn = document.getElementById('submit');
 
     submitBtn.onclick = function() {}
-
-    let box = document.querySelector('.container');
-    box.insertAdjacentHTML("afterend", "<div class='text-center mt-3'>container寬度：" + box.clientWidth + "px</div>" + "<div class='text-center mt-3'>網頁可見區域寬：" + document.body.clientWidth + "px</div>");
 
 }
 
@@ -107,7 +113,7 @@ function createForm(target_id, form_stru) {
                   </select>
                 </div>`;
 
-        } else if (form_stru[i]['type'] === '段落') {
+        } else if (form_stru[i]['type'] === 'textarea') {
             form_item_html += `
                 <div class="col-sm-${form_stru[i]['width']} mb-3">
                   <label class="form-label">${form_stru[i]['label']}</label>
@@ -140,16 +146,16 @@ function createForm(target_id, form_stru) {
     }
     form_item.innerHTML = form_item_html;
 
-    let date_input = document.getElementById('date')
-    let today_date = new Date()
-    date_input.value = today_date.getFullYear() + '-' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '-' + ('0' + today_date.getDate()).slice(-2);
+    // let date_input = document.getElementById('date')
+    // let today_date = new Date()
+    // date_input.value = today_date.getFullYear() + '-' + ('0' + (today_date.getMonth() + 1)).slice(-2) + '-' + ('0' + today_date.getDate()).slice(-2);
 
-    let min_date = new Date()
-    min_date.setDate(min_date.getDate() - 5)
-    let max_date = new Date()
-    max_date.setDate(max_date.getDate() + 5)
-    date_input.setAttribute('min', min_date.getFullYear() + '-' + ('0' + (min_date.getMonth() + 1)).slice(-2) + '-' + ('0' + min_date.getDate()).slice(-2))
-    date_input.setAttribute('max', max_date.getFullYear() + '-' + ('0' + (max_date.getMonth() + 1)).slice(-2) + '-' + ('0' + max_date.getDate()).slice(-2))
+    // let min_date = new Date()
+    // min_date.setDate(min_date.getDate() - 5)
+    // let max_date = new Date()
+    // max_date.setDate(max_date.getDate() + 5)
+    // date_input.setAttribute('min', min_date.getFullYear() + '-' + ('0' + (min_date.getMonth() + 1)).slice(-2) + '-' + ('0' + min_date.getDate()).slice(-2))
+    // date_input.setAttribute('max', max_date.getFullYear() + '-' + ('0' + (max_date.getMonth() + 1)).slice(-2) + '-' + ('0' + max_date.getDate()).slice(-2))
 }
 
 

@@ -1,0 +1,224 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+<style>
+    .form-control {
+        padding: 0.375em 0.75em !important;
+    }
+
+    .loader {
+        border: 5px solid #f3f3f3; /* Light grey */
+        border-top: 5px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: auto;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+
+<script>
+    const TargetURL = 'https://script.google.com/macros/s/AKfycbyfFC46klPsp8IyXT-m_vkoNmgDv_HVaiF6hkNi0ucz-jipO5Db9JG8fBKcrSDA0Bk/exec'
+
+    window.onload = function() {
+
+        document.getElementById('GASForm').setAttribute('action', TargetURL)
+        let current_url = window.location.href
+        document.getElementById('callback_url').value = current_url
+        document.getElementById('home_url').value = current_url.replace(window.location.pathname, '')
+
+        $.ajax({
+            url: TargetURL,
+            data: {
+                op: 'get_contact_stru'
+            },
+            method: 'GET',
+            dataType: 'json',
+            async: true,
+            // 發送前
+            beforeSend: function() {
+
+            },
+            // 成功
+            success: function(result) {
+                createForm('GASForm_ObjectArea', result)
+                document.getElementById('loaderArea').style.display = 'none'
+            },
+            // 失敗
+            error: function(error) {
+                console.log(error)
+            }
+        });
+
+        let submitBtn = document.getElementById('submit');
+
+        submitBtn.onclick = function() {}
+
+    }
+
+    function createForm(target_id, form_stru) {
+
+        let form_item = document.getElementById(target_id);
+        let form_item_html = options_html = '';
+        let options;
+
+        for (let i in form_stru) {
+            if (form_stru[i]['type'] === 'text' ||
+                form_stru[i]['type'] === 'url' ||
+                form_stru[i]['type'] === 'email' ||
+                form_stru[i]['type'] === 'password' ||
+                form_stru[i]['type'] === 'date' ||
+                form_stru[i]['type'] === 'month' ||
+                form_stru[i]['type'] === 'week' ||
+                form_stru[i]['type'] === 'number' ||
+                form_stru[i]['type'] === 'color' ||
+                form_stru[i]['type'] === 'search'
+            ) { //簡答
+                form_item_html += `
+                    <div class="col-sm-${form_stru[i]['width']} mb-3">
+                        <label for="${form_stru[i]['name']}" class="form-label">${form_stru[i]['label']}</label>
+                        <input type="${form_stru[i]['type']}" name="${form_stru[i]['name']}" value="${form_stru[i]['value']}" class="form-control" id="${form_stru[i]['name']}" ${form_stru[i]['valid']}>
+                    </div>`;
+
+            } else if (form_stru[i]['type'] === 'radio') {
+                options = form_stru[i]['option'].split('|');
+                options_html = '';
+                for (let j in options) {
+                    let required = (j == '0') ? form_stru[i]['valid'] : '';
+                    options_html += `
+                        <div class="form-check form-check-inline">
+                            <input type="${form_stru[i]['type']}" name="${form_stru[i]['name']}" value="${options[j]}" class="form-check-input" id="${form_stru[i]['name']}_${j}" ${required}>
+                            <label class="form-check-label" for="${form_stru[i]['name']}_${j}">${options[j]}</label>
+                        </div>`;
+                };
+
+                form_item_html += `
+                    <div class="col-sm-${form_stru[i]['width']} mb-3">
+                        <label class="form-label w-100">${form_stru[i]['label']}</label>
+                        ${options_html}
+                    </div>`;
+
+            } else if (form_stru[i]['type'] === 'select') {
+                options = form_stru[i]['option'].split('|');
+                options_html = '';
+                for (let j in options) {
+                    options_html += `
+                        <option value="${options[j]}">${options[j]}</option>`;
+                }
+
+                form_item_html += `
+                    <div class="col-sm-${form_stru[i]['width']} mb-3">
+                        <label class="form-label">${form_stru[i]['label']}</label>
+                        <select name="${form_stru[i]['name']}" class="form-select" id="${form_stru[i]['name']}" ${form_stru[i]['valid']}>
+                            ${options_html}
+                        </select>
+                    </div>`;
+
+            } else if (form_stru[i]['type'] === 'select_m') {
+                options = form_stru[i]['option'].split('|');
+                options_html = '';
+                for (let j in options) {
+                    options_html += `
+                        <option value="${options[j]}">${options[j]}</option>`;
+                }
+
+                form_item_html += `
+                    <div class="col-sm-${form_stru[i]['width']} mb-3">
+                    <label class="form-label">${form_stru[i]['label']}</label>
+                    <select name="${form_stru[i]['name']}" class="form-select" id="${form_stru[i]['name']}" ${form_stru[i]['valid']} multiple >
+                        ${options_html}
+                    </select>
+                    </div>`;
+
+            } else if (form_stru[i]['type'] === 'textarea') {
+                form_item_html += `
+                    <div class="col-sm-${form_stru[i]['width']} mb-3">
+                    <label class="form-label">${form_stru[i]['label']}</label>
+                    <textarea name="${form_stru[i]['name']}" class="form-control" id="${form_stru[i]['name']}" rows="5" ${form_stru[i]['valid']}>${form_stru[i]['value']}</textarea>
+                    </div>`;
+
+            } else if (form_stru[i]['type'] === 'checkbox') {
+                options = form_stru[i]['option'].split('|');
+                options_html = '';
+                let required = form_stru[i]['valid'] ? `oninput="renderCheckbox('${form_stru[i]['name']}')"` : '';
+
+                for (let j in options) {
+                    options_html += `
+                    <div class="form-check form-check-inline">
+                        <input type="${form_stru[i]['type']}" name="${form_stru[i]['name']}" value="${options[j]}" class="form-check-input ${form_stru[i]['name']}" id="${form_stru[i]['name']}_${j}" ${form_stru[i]['valid']} ${required}>
+                        <label class="form-check-label" for="${form_stru[i]['name']}_${j}">${options[j]}</label>
+                    </div>`;
+                };
+
+                form_item_html += `
+                    <div class="col-sm-${form_stru[i]['width']} mb-3">
+                    <label class="form-label w-100">${form_stru[i]['label']}</label>
+                    ${options_html}
+                    </div>`;
+
+            } else if (form_stru[i]['type'] === 'hidden') {
+                form_item_html += `
+                    <input type="hidden" name="${form_stru[i]['name']}" value="${form_stru[i]['value']}" id="${form_stru[i]['name']}">`;
+            }
+        }
+        form_item.innerHTML = form_item_html;
+    }
+
+
+    function renderCheckbox(name){
+        if(isAtLeastOneChecked(name)){
+            removeRequired(name);
+        }else{
+            setRequired(name);
+        }
+    }
+
+    function isAtLeastOneChecked(name) {
+        let checkboxes = Array.from(document.getElementsByName(name));
+        return checkboxes.some(function(item) {
+            return item.checked;
+        });
+    }
+
+    function removeRequired(name){
+        let checkboxes = Array.from(document.getElementsByName(name));
+        for(let i in checkboxes){
+            checkboxes[i].removeAttribute('required');
+        }
+    }
+    function setRequired(name){
+        let checkboxes = Array.from(document.getElementsByName(name));
+        for(let i in checkboxes){
+            checkboxes[i].setAttribute('required', true);
+        }
+    }
+</script>
+
+<div class="container p-3 text-center" id="loaderArea">
+    <div class="loader"></div>
+    正在載入必要的資訊 ... ...
+</div>
+
+<form id="GASForm" method="post">
+
+    <p>此處的表單測試是確認能夠與 Google Apps Script 互動。</p>
+
+    <!-- Input Form Object Area -->
+    <div class="row" id="GASForm_ObjectArea"></div>
+
+    <!-- Hidden Info Object Area-->
+    <input type="hidden" name='op' value='contact' class="form-control" id="op">
+    <input type="hidden" name='callback_url' id="callback_url">
+    <input type="hidden" name='home_url' id="home_url">
+
+    <!-- Submit Button Area -->
+    <button type="submit" class="btn btn-primary w-100" id="submit">送出</button>
+
+</form>
