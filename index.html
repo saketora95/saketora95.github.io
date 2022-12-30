@@ -4,11 +4,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <link href="css/indexCSS.css" rel="stylesheet" />
 
         <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-
         <script src="script/indexScript.js"></script>
 
         <title>06 Kai's Test Website</title>
@@ -18,20 +19,12 @@
             <h1>Hello.</h1>
             <p>這裡是一個測試網站。</p>
 
-            <div class="accordion" id="accordionMain">
+            <div class="container p-3 text-center" id="loaderArea">
+                <div class="loader"></div>
+                正在載入必要的資訊 ... ...
+            </div>
 
-                <!-- <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Accordion Item #1
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionMain">
-                        <div class="accordion-body">
-                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </div>
-                </div> -->
+            <div class="accordion" id="accordionMain">
 
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingInfo">
@@ -70,7 +63,19 @@
                         <div class="accordion-body">
 
                             <div>
+                                <span class="badge rounded-pill bg-info text-dark">2022-12-30</span>
+                                <p><strong>16:30</strong> - 建立 <a href="https://www.tora95.tk/contact-me/">聯絡我</a> 頁面。</p>
+                                <p><strong>14:40</strong> - 將 Google App Script's Form Test 併入 <a href="https://www.tora95.tk/20221229_payment_test/">WordPress</a> 網站中。</p>
+                            </div>
+
+                            <div>
+                                <span class="badge rounded-pill bg-info text-dark">2022-12-29</span>
+                                <p><strong>17:00</strong> - 建立練習用的 <a href="https://www.tora95.tk/">WordPress</a> 網站。</p>
+                            </div>
+
+                            <div>
                                 <span class="badge rounded-pill bg-info text-dark">2022-12-26</span>
+                                <p><strong>14:40</strong> - 追加載入圖的顯示。</p>
                                 <p><strong>14:20</strong> - 合併 <a href="form_test.html">form_test.html</a> 頁面，刪除 testArea_20221212 與 testArea_20221215 的內容。</p>
                                 <p><strong>13:30</strong> - 調整 <a href="form_test.html">form_test.html</a> 結構，搭配 Google Apps Script，使表單內容會配合 Google Apps Script 產生。</p>
                             </div>
@@ -127,22 +132,23 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="form_test">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormTest" aria-expanded="true" aria-controls="collapseFormTest">
-                            Google App Script's Form Test
+                            Google App Script's Form Test (聯絡我們)
                         </button>
                     </h2>
                     <div id="collapseFormTest" class="accordion-collapse collapse" aria-labelledby="form_test" data-bs-parent="#accordionMain">
                         <div class="accordion-body">
 
-                            <form id="GASForm" action="https://script.google.com/macros/s/AKfycbyfFC46klPsp8IyXT-m_vkoNmgDv_HVaiF6hkNi0ucz-jipO5Db9JG8fBKcrSDA0Bk/exec" method="post">
+                            <form id="GASForm" method="post">
 
-                                <p>此處的表單測試是確認能夠與 Google Apps Script 互動，並使「返回表單」按鈕可以回到原先的網站。</p>
+                                <p>此處的表單測試是確認能夠與 Google Apps Script 互動。</p>
 
                                 <!-- Input Form Object Area -->
                                 <div class="row" id="GASForm_ObjectArea"></div>
 
                                 <!-- Hidden Info Object Area-->
-                                <input type="hidden" name='op' value='payment' class="form-control" id="op">
-                                <input type="hidden" name='return_url' id="return_url">
+                                <input type="hidden" name='op' value='contact' class="form-control" id="op">
+                                <input type="hidden" name='callback_url' id="callback_url">
+                                <input type="hidden" name='home_url' id="home_url">
 
                                 <!-- Submit Button Area -->
                                 <button type="submit" class="btn btn-primary w-100" id="submit">送出</button>
@@ -152,62 +158,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 2022-12-15 Form Test (已停用) -->
-                <!-- <div class="accordion-item">
-                    <h2 class="accordion-header" id="testArea_20221215">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTestArea_20221215" aria-expanded="true" aria-controls="collapseTestArea_20221215">
-                            2022-12-15 Form Test (已停用)
-                        </button>
-                    </h2>
-                    <div id="collapseTestArea_20221215" class="accordion-collapse collapse" aria-labelledby="testArea_20221215" data-bs-parent="#accordionMain">
-                        <div class="accordion-body">
-
-                            <form action="https://script.google.com/macros/s/AKfycbyfFC46klPsp8IyXT-m_vkoNmgDv_HVaiF6hkNi0ucz-jipO5Db9JG8fBKcrSDA0Bk/exec" method="post">
-
-                                此處的表單測試是確認能夠與 Google Apps Script 互動，並使「返回表單」按鈕可以回到原先的網站。
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" name="input_text" id="input_text">
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="hidden" class="form-control" name="source_url" id="source_url" >
-                                </div>
-
-                                <input type="submit" class="btn btn-primary" value="Submit" disabled>
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- 2022-12-12 Form Test (已停用) -->
-                <!-- <div class="accordion-item">
-                    <h2 class="accordion-header" id="testArea_20221212">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTestArea_20221212" aria-expanded="true" aria-controls="collapseTestArea_20221212">
-                            2022-12-12 Form Test (已停用)
-                        </button>
-                    </h2>
-                    <div id="collapseTestArea_20221212" class="accordion-collapse collapse" aria-labelledby="testArea_20221212" data-bs-parent="#accordionMain">
-                        <div class="accordion-body">
-
-                            <form action="https://script.google.com/macros/s/AKfycbyfFC46klPsp8IyXT-m_vkoNmgDv_HVaiF6hkNi0ucz-jipO5Db9JG8fBKcrSDA0Bk/exec" method="post">
-
-                                此處的表單測試是確認能夠與 Google Apps Script 互動。
-
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" name="input_text_2022-12-12" id="input_text_2022-12-12">
-                                </div>
-
-                                <input type="submit" class="btn btn-primary" value="Submit" disabled>
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div> -->
 
             </div>
 
